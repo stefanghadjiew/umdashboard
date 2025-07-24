@@ -34,6 +34,7 @@ export enum GAME_ACTIONS {
 
 socket.connect();
 
+// TODO: Aligh this with the GameProvider component
 const handleClearOldGame = () => {
   localStorage.removeItem('gameId');
   localStorage.removeItem('gameMaster');

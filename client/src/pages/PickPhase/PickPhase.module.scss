@@ -6,6 +6,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 140px));
     gap: 1rem;
+    justify-content: center;
 }
 
 .champion--picked {

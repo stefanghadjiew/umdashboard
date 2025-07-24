@@ -16,8 +16,8 @@ export const ChampionCard = ({ name, tier, onClick, className, ...rest }: Props)
   const styles = { ...rest.style, backgroundImage: `url(${image})` };
   return (
     <div {...rest} className={cardClasses} style={styles} onClick={onClick}>
-      {/* <div className={classes['championCard__name']}>{name}</div>
-      <div className={classes['championCard__tier']}>{tier}</div> */}
+      <div className={classes['championCard__name']}>{name}</div>
+      <div className={classes['championCard__tier']}>{tier}</div>
     </div>
   );
 };
