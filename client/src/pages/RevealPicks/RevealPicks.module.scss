@@ -1,0 +1,22 @@
+.revealPicks {
+    width: 100%;
+    
+    &__team {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: .5rem;
+
+        &__champions {
+            display: flex;
+            /* grid-template-columns: repeat(auto-fill, minmax(70px, 70px)); */
+            gap: .5rem;
+        }
+    }
+}
+
+.btn--disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: .5;
+}

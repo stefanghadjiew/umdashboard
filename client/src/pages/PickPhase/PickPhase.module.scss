@@ -1,0 +1,19 @@
+.championContainer {
+    margin: 1.5rem 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 140px));
+    gap: 1rem;
+}
+
+.champion--picked {
+    border: 10px solid green;
+}
+
+.btn--disabled {
+    opacity: .5;
+    pointer-events: none;
+    cursor: not-allowed;
+}

@@ -1,0 +1,34 @@
+@use './styles/resets.module';
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --background: #673ab7;
+  --color: #fff;
+  --neutral--200: #d8dae0;
+  --light-blue--100: #f4f5ff;
+
+  //Spacings
+  --padding-xs: .5rem;
+  --padding-md: 1rem;
+  --padding-xl: 1.5rem;
+
+  --margin-xs: .5rem;
+  --margin-md: 1rem;
+  --margin-xl: 1.5rem;
+
+  --max-width: 600px;
+}
+
+body, html {
+    overflow: hidden;
+    background-color: var(--light-blue--100);
+}

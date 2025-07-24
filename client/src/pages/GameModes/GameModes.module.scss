@@ -1,0 +1,8 @@
+@use '../../styles/mixins.module' as mixins;
+
+.gameModes {
+    @include mixins.centered;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
