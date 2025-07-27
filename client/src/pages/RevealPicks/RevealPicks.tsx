@@ -55,7 +55,7 @@ export const RevealPicks = () => {
   useNavigateBackPlayersWhoPickAgain(playersToPickAgain);
 
   const renderBanButton = isGameMaster ? (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem', marginTop: '1rem', width: '100%' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem', marginTop: '1rem' }}>
       <ResetGameButton />
       <Button
         onClick={handleBanDuplicates}

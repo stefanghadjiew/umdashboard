@@ -85,7 +85,7 @@ export const PickPhase = () => {
   return (
     <>
       <div className={classes.championContainer}>{renderChampions}</div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '.25rem' }}>
         {isGameMaster && (
           <>
             <Button

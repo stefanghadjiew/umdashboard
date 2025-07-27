@@ -3,6 +3,5 @@
 .game {
     @include mixins.centered;
     flex-direction: column;
-    gap: .5rem;  
-    width: 100%;
+    gap: .5rem;
 }

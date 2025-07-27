@@ -1,7 +1,6 @@
 @use '../../styles/mixins.module' as mixins;
 
 .lobby {
-    width: 100%;
     @include mixins.centered;
     justify-content: space-between;
     flex-direction: column;
