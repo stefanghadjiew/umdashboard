@@ -1,6 +1,6 @@
 .layout {
     background-color: var(--color);
-    height: calc(100vh - 40px);
+    height: calc(100vh - 32px);
     padding: var(--padding-md);
     margin: var(--margin-xl) auto;
     display: flex;
@@ -21,7 +21,7 @@
         height: 125px;
 
         @media (max-width: 540px) {
-            width: 280px;
+            width: 250px;
         }
     }
 
@@ -30,7 +30,7 @@
         height: 150px;
 
         @media (max-width: 540px) {
-            width: 280px;
+            width: 250px;
         }
     }
 }
