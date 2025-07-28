@@ -1,5 +1,6 @@
 import Achilies from './Achilies.jpg';
 import Alice from './Alice.jpg';
+import AncientLeshen from './AncientLeshen.webp';
 import AnnieChristmas from './AnnieChristmas.webp';
 import Beowulf from './Beowulf.jpg';
 import Bigfoot from './Bigfoot.jpg';
@@ -16,6 +17,7 @@ import DrSatler from './DrSatler.jpg';
 import Elektra from './Elektra.jpg';
 import Eredin from './Eredin.webp';
 import Genie from './Genie.jpg';
+import Gerald from './Gerald.jpg';
 import GhostRider from './GhostRider.webp';
 import GoldenBat from './GoldenBat.jpg';
 import Houdini from './Houdini.jpg';
@@ -29,6 +31,7 @@ import MoonKnight from './MoonKnight.jpg';
 import Muldoon from './Muldoon.jpg';
 import NicolaTesla from './NicolaTesla.webp';
 import OdaNobunaga from './OdaNobunaga.webp';
+import Philippa from './Philippa.webp';
 import Raptors from './Raptors.jpg';
 import RobinHood from './RobinHood.jpg';
 import Sherlock from './Sherlock.jpg';
@@ -89,5 +92,8 @@ export const resources: { [key: string]: string } = {
   InvisibleMan,
   JekyllHide,
   KingArthur,
-  SpiderMan
+  SpiderMan,
+  Gerald,
+  AncientLeshen,
+  Philippa
 };

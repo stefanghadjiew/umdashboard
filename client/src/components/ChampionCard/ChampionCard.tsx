@@ -10,14 +10,14 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export const ChampionCard = ({ name, tier, onClick, className, ...rest }: Props) => {
+export const ChampionCard = ({ name, /* tier, */ onClick, className, ...rest }: Props) => {
   const image = resources[name] ?? '';
   const cardClasses = classNames(classes.championCard, className);
   const styles = { ...rest.style, backgroundImage: `url(${image})` };
   return (
     <div {...rest} className={cardClasses} style={styles} onClick={onClick}>
-      <div className={classes['championCard__name']}>{name}</div>
-      <div className={classes['championCard__tier']}>{tier}</div>
+      {/* <div className={classes['championCard__name']}>{name}</div>
+      <div className={classes['championCard__tier']}>{tier}</div> */}
     </div>
   );
 };
