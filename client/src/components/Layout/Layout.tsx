@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 export const Layout = () => {
   const { pathname } = useLocation();
-  const shouldDisplayLogo = !pathname.includes('lobby');
+  const shouldDisplayLogo = !pathname.includes('Team1') && !pathname.includes('Team2');
   return (
     <div className={classes.layout}>
       <img
