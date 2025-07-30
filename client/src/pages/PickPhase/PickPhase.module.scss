@@ -11,6 +11,10 @@
 
 .champion--picked {
     border: 10px solid green;
+
+    &_teammember {
+        border: 10px solid red;
+    }
 }
 
 .btn--disabled {

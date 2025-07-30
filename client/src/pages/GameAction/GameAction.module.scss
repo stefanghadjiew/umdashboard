@@ -4,4 +4,16 @@
     @include mixins.centered;
     flex-direction: column;
     gap: .5rem;
+
+    &__active-games {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 3rem;
+        gap: .5rem;
+
+        a {
+            color: inherit;
+            cursor: pointer;
+        }
+    }
 }

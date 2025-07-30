@@ -1,4 +1,4 @@
-import { Game } from '../../db/db';
+import { Game, Champion } from '../../db/db';
 import { Socket } from 'socket.io';
 
 interface Data {
@@ -7,8 +7,10 @@ interface Data {
 
 export const onCreateGame = async (data : Data, callback: ({gameId} : {gameId : string}) => void, socket: Socket) => {
     const { createdBy } = data;
+    if(!createdBy) return;
     try {
-        const newGame = await Game.create({ players: [{name: createdBy}], createdBy })
+        const champions = await Champion.aggregate([{$sample: { size: 25}}]);
+        const newGame = await Game.create({ players: [{name: createdBy}], createdBy, status: 'Active', championPool: champions })
         socket.join(newGame._id.toString());
         callback({gameId: newGame._id.toString()})
     } catch (err) {

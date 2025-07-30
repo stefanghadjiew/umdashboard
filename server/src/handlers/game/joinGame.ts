@@ -15,6 +15,11 @@ export const onJoinGame = async (data: Data, callback: ModeCallback, socket: Soc
     try {
         const currentGame = await Game.findById(gameId)
         if(!currentGame) return;
+        if(currentGame.players.length === 4) {
+            currentGame.status = 'Full';
+            await currentGame.save();
+            return;
+        };
         currentGame?.players.push({name: player});
         await currentGame?.save();
         socket.join(gameId);

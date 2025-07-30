@@ -1,7 +1,5 @@
 import classes from './Lobby.module.scss';
 
-import { useState } from 'react';
-
 import { useNavigate, useParams } from 'react-router';
 
 import classNames from 'classnames';
@@ -17,7 +15,6 @@ import { useUpdateTeams } from './useUpdateTeams';
 const teams = ['Team1', 'Team2'];
 
 export const Lobby = () => {
-  const [copied, setCopied] = useState(false);
   const { gameId, player } = useGameContext();
   const { team1Players, team2Players } = useUpdateTeams(socket, gameId);
   const { action, mode } = useParams();
@@ -32,12 +29,6 @@ export const Lobby = () => {
     [classes['btn--disabled']]: shouldDisableJoinTeam2Button
   };
 
-  const handleCopyToClipboard = async () => {
-    if (gameId) {
-      await navigator.clipboard.writeText(gameId);
-      setCopied(true);
-    }
-  };
   const handleJoinTeam1 = () => {
     if (shouldDisableJoinTeam1Button) {
       return;
@@ -55,11 +46,6 @@ export const Lobby = () => {
 
   return (
     <div className={classes.lobby}>
-      <div className={classes.clipboard}>
-        <h2>Current game is:</h2>
-        <h3>{gameId}</h3>
-        <Button onClick={handleCopyToClipboard}>{copied ? '✅ Copied' : 'Copy'}</Button>
-      </div>
       <div className={classes.buttons}>
         <Button
           disabled={shouldDisableJoinTeam1Button}

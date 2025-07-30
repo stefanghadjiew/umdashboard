@@ -1,39 +1,40 @@
 import { Server } from "socket.io";
-import { Game, Champion } from '../../db/db';
+import { Game } from '../../db/db';
 import { GAME_ACTIONS } from "../../registerSocketHandlers";
-import { type ExcludedTiers } from "./excludeChampions";
 
 
-export const onBanChampions = async (gameId: string, champions: string[], excludedTiers: ExcludedTiers,io: Server) => {
+export const onBanChampions = async (gameId: string, champions: string[],io: Server) => {
+    
     try {
         const currentGame = await Game.findById(gameId);
-        const allChampions = await Champion.find();
-        const championsWithoutExcludedTier = allChampions.filter(c => !currentGame?.excludedTiers.includes(c.tier as string));
-        const championsToSend = championsWithoutExcludedTier.filter(c => !champions.includes(c.name as string));
-        if (currentGame?.picks) {
-            const filteredTeam1 = currentGame.picks.Team1.filter(
-                (c) => !champions.includes(c.name!)
-            );
-            const filteredTeam2 = currentGame.picks.Team2.filter(
-                (c) => !champions.includes(c.name!)
-            );
-
-            // Mutate the DocumentArray instead of reassigning it
-            currentGame.picks.Team1.splice(0, currentGame.picks.Team1.length, ...filteredTeam1);
-            currentGame.picks.Team2.splice(0, currentGame.picks.Team2.length, ...filteredTeam2);
+        const excluded = currentGame?.championPool.filter(c => !champions.includes(c.name as string));
+        const updatedGame = await Game.findByIdAndUpdate(gameId, {
+        $pull: {
+            'picks.Team1': { name: { $in: champions } },
+            'picks.Team2': { name: { $in: champions } },
+        },
+        $addToSet: {
+            bannedChampions: { $each: champions },
+        },
+        $set: {
+            championPool: excluded
         }
-       
-        currentGame?.bannedChampions.push(...champions);
-        //MAYBE REMOVE THE CURRENT PICKS FROM THE PLAYER ????
-         const playersToPickAgain = currentGame?.pickedBy.map((p) => {
-            const bannedCount = p.champions.filter((champ) => currentGame.bannedChampions.includes(champ.name as string)).length;
+        }, { new: true });
+        
+        
+        const playersToPickAgain = updatedGame?.pickedBy.map((p) => {
+            const bannedCount = p.champions.filter((champ) =>
+                updatedGame.bannedChampions.includes(champ.name as string)
+            ).length;
 
             return bannedCount > 0
-            ? { name: p.name, picksNeeded: bannedCount }
-            : null;
-        }).filter(Boolean);
-        await currentGame?.save();
-        io.emit(GAME_ACTIONS.CHAMPIONS_BANNED, { champions: championsToSend, players: playersToPickAgain });
+                ? { name: p.name, picksNeeded: bannedCount }
+                : null;
+            }).filter(Boolean);
+        io.emit(GAME_ACTIONS.CHAMPIONS_BANNED, {
+        champions: updatedGame?.championPool,
+        players: playersToPickAgain,
+        });
     } catch (err) {
         throw new Error(`Failed in: onBanChampions with error: ${err}`)
     }

@@ -1,8 +1,8 @@
-import { Form, Layout } from '@components';
+import { Layout } from '@components';
 
 import { siteMap } from './constants';
 
-import { GameAction, GameModes, Lobby, PickPhase, RevealPicks } from '@pages';
+import { GameAction, GameModes, GameStart, Lobby, PickPhase, RevealPicks } from '@pages';
 
 export const useSiteRouteDefinitions = () => {
   return [
@@ -14,16 +14,6 @@ export const useSiteRouteDefinitions = () => {
           element: <GameAction />,
           index: true,
           id: '1'
-        },
-        {
-          path: siteMap.addPlayer,
-          id: '7',
-          element: <Form isPlayer />
-        },
-        {
-          path: siteMap.joinGame,
-          id: '8',
-          element: <Form />
         },
         {
           path: siteMap.mode,
@@ -43,7 +33,12 @@ export const useSiteRouteDefinitions = () => {
         {
           path: siteMap.revealPicks,
           element: <RevealPicks />,
-          id: '10'
+          id: '5'
+        },
+        {
+          path: siteMap.gameStart,
+          element: <GameStart />,
+          id: '6'
         }
       ]
     }

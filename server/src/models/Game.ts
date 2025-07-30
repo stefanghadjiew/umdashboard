@@ -3,11 +3,26 @@ import { championSchema } from './Champion';
 
 const { Schema , model } = mongoose;
 
+  const teamPickSchema = new Schema({
+    player: {
+      type: String,
+      required: true,
+    },
+    champions: {
+      type: [championSchema],
+      default: [],
+    },
+  }, { _id: false });
+
 
 const gameSchema = new Schema({
     mode: {
         type: String,
         enum: ['1vs1', '2vs2'],
+    },
+    status: {
+      type: String,
+      enum: ['Active', 'Full', 'Finished']
     },
     players: [
         {
@@ -27,14 +42,14 @@ const gameSchema = new Schema({
         enum: ['Team1','Team2']
     },
     picks: {
-    Team1: {
-      type: [championSchema],
-      default: [],
-    },
-    Team2: {
-      type: [championSchema],
-      default: [],
-    },
+      Team1: {
+        type: [championSchema],
+        default: [],
+      },
+      Team2: {
+        type: [championSchema],
+        default: [],
+      },
   },
   pickedBy: [
       {
@@ -53,7 +68,33 @@ const gameSchema = new Schema({
     bannedChampions: {
       type: [String],
       default: []
-    }
+    },
+    championPool: {
+      type: [championSchema],
+      default: [],
+    },
+     currentPicks: {
+      Team1: {
+        type: [teamPickSchema],
+        default: [],
+      },
+      Team2: {
+        type: [teamPickSchema],
+        default: [],
+      },
+      default: []
+  },
+  finalPicks: {
+    Team1: {
+      type: [teamPickSchema],
+      default: [],
+    },
+    Team2: {
+      type: [teamPickSchema],
+      default: [],
+    },
+    default: []
+  }
 })
 
 const Game = model('Game', gameSchema);

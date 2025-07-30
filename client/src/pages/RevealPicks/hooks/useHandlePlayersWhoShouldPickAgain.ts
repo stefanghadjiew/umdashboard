@@ -27,5 +27,5 @@ export const useHandlePlayersWhoShouldPickAgain = (
     return () => {
       socket.off(GAME_ACTIONS.CHAMPIONS_BANNED, handleUpdatePlayersThatShouldPickAgain);
     };
-  }, [player]);
+  }, [player, handleNumberOfPicks, setPlayersToPickAgain]);
 };

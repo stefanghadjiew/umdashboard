@@ -4,17 +4,19 @@ import { useNavigate } from 'react-router';
 
 import { socket } from 'socket';
 
+import { useGetActiveGames } from './hooks/useGetActiveGames';
+
 import { GAME_ACTIONS } from '../GameAction';
 
-/* interface Game {
-  id: string;
-  mode: '1v1' | '2v2';
+export interface Game {
+  _id: string;
+  mode?: '1v1' | '2v2';
   players: string[];
   createdBy: string;
-  winner: 'Team1' | 'Team2';
-} */
+}
 
 type GameContextType = {
+  activeGames: Game[];
   gameId: string | null;
   player: string | null;
   gameMaster: string | null;
@@ -35,6 +37,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     const saved = localStorage.getItem('numberOfPicks');
     return saved ? +saved : 2;
   });
+  const { activeGames } = useGetActiveGames(socket);
   const navigate = useNavigate();
 
   const handleNumberOfPicks = (numberOfPicks: number) => {
@@ -61,6 +64,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     navigate('/');
   };
   const contextValues = {
+    activeGames,
     gameId,
     player,
     handleCreatePlayer,
