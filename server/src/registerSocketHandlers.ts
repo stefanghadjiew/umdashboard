@@ -14,8 +14,10 @@ import {
     onGetCurrentActiveGames,
     onPlayerPickingChampions,
     onPlayerFinalPick,
-    onGetFinalPicksByPlayers 
+    onGetFinalPicksByPlayers,
+    onResetGame 
 } from "./handlers/game";
+import { on } from "events";
 
 
 
@@ -55,21 +57,21 @@ export const registerSocketHandlers = (socket: Socket, io: Server) => {
     socket.on(GAME_ACTIONS.GET_CURRENT_ACTIVE_GAMES, async (_, callback) => await onGetCurrentActiveGames(callback));
 
     // From here we join all players and we can emit events to the specific game(via gameId);
+    //TODO: Figure out why after refresh emitting to the gameId doesn't work !!!!
     socket.on(GAME_ACTIONS.JOIN_GAME, async (data, callback) => await onJoinGame(data,callback, socket)); 
     socket.on(GAME_ACTIONS.JOIN_TEAM, async (data, callback) => await onSelectTeam(data, callback));
     socket.on(GAME_ACTIONS.GET_PLAYERS, async ({ gameId }, callback) => await onGetPlayers(gameId, callback));
     socket.on(GAME_ACTIONS.JOIN_GAMEBOARD, async({gameId},callback) => await onJoinGameboard(gameId,callback));
     socket.on(GAME_ACTIONS.EXCLUDE_CHAMPION_TIERS, async({ gameId, excludedTiers }) => await onExcludeChampionTiers(gameId, excludedTiers, io));
-    socket.on(GAME_ACTIONS.BAN_CHAMPIONS, async({ gameId, champions }) => await onBanChampions(gameId, champions, io))
-
-    
-    socket.on(GAME_ACTIONS.PLAYER_PICKING_CHAMPIONS, async ({ gameId,champions, player, team }) => await onPlayerPickingChampions(gameId,champions,player,team, io))
-    socket.on(GAME_ACTIONS.PLAYER_FINAL_PICKED, async ({ gameId, champion,player, team }) => await onPlayerFinalPick(gameId,champion,player,team, io))
-    socket.on(GAME_ACTIONS.GET_FINAL_PICKS_BY_PLAYERS, async({ gameId }) => await onGetFinalPicksByPlayers(gameId, io))
+    socket.on(GAME_ACTIONS.BAN_CHAMPIONS, async({ gameId, champions }) => await onBanChampions(gameId, champions, io));
+    socket.on(GAME_ACTIONS.PLAYER_PICKING_CHAMPIONS, async ({ gameId,champions, player, team }) => await onPlayerPickingChampions(gameId,champions,player,team, io));
+    socket.on(GAME_ACTIONS.PLAYER_FINAL_PICKED, async ({ gameId, champion,player, team }) => await onPlayerFinalPick(gameId,champion,player,team, io));
+    socket.on(GAME_ACTIONS.GET_FINAL_PICKS_BY_PLAYERS, async({ gameId }) => await onGetFinalPicksByPlayers(gameId, io));
+    socket.on(GAME_ACTIONS.RESET_GAME, async({gameId}) => await onResetGame(gameId, io));
     
     //TODO: Probably need to remove this ( and FE part as well )
     socket.on(GAME_ACTIONS.PICK_CHAMPIONS, async (data) => await onPickChampions(data, io));
     socket.on(GAME_ACTIONS.GET_CHAMPIONS, async ({ gameId }, callback) => await onGetChampions(gameId, callback));
-    socket.on(GAME_ACTIONS.GET_TEAM_PICKS_AFTER_REFRESH, async({gameId}) => await onGetChampionsAfterRefresh(gameId, socket))
-    socket.on(GAME_ACTIONS.RESET_GAME, () => { io.emit(GAME_ACTIONS.GAME_RESET) })
+    socket.on(GAME_ACTIONS.GET_TEAM_PICKS_AFTER_REFRESH, async({gameId}) => await onGetChampionsAfterRefresh(gameId, socket));
+    
 }

@@ -13,3 +13,4 @@ export * from './selectTeam';
 export * from './playerPickingChampions';
 export * from './playerFinalPick';
 export * from './getFinalPicksByPlayers';
+export * from './resetGame';
